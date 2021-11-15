@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--<context:property-placeholder />-->
+
+	<bean id="laptop-1" class="com.rapipay.app.model.Product">
+	 	<property name="productName" value="${laptop-name}"></property>
+	 	
+	 </bean>
+	
+	 <bean id="laptop-2" class="com.rapipay.app.model.Product">
+	 	<constructor-arg name="productName" value="ABC-123"/>
+	 	<constructor-arg name="cost" value="2000"/>
+	 	<constructor-arg name="productId" value="2"/>
+	 </bean>
+	 
+</beans>
