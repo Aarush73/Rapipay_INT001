@@ -4,59 +4,77 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.example.otp.bean.OTP;
 import com.example.otp.dao.OtpDao;
 import com.example.otp.exceptions.ExceededAttemptsException;
+import com.example.otp.exceptions.InvalidEmailException;
 import com.example.otp.exceptions.NegativeException;
 import com.example.otp.sendEmail.SendEmail;
 
 @Service
 public class OtpServicesImpl implements OtpServices {
 
+	@Value("${validTime}")
+	public int validTime;
+
+	@Value("${attemptsTimeout}")
+	public int attemptsTimeout;
+
 	@Autowired
 	OtpDao otpDao;
 
-	@Override
-	public int getOtp(int userId, int orderId, String channelName) throws NegativeException {
+	@Autowired
+	private SendEmail send;
 
-		if (userId <= 0 || orderId <= 0) {
+	@Override
+	public int getOtp(OTP objectOTP) throws NegativeException, InvalidEmailException {
+
+		if (objectOTP.getUserId() <= 0 || objectOTP.getOrderId() <= 0) {
 			throw new NegativeException();
 		}
 
 		int otp = (int) (Math.floor(100000 + Math.random() * 900000));
 
-		OTP objOtp = new OTP(userId, orderId, channelName, otp);
+		OTP objOtp = new OTP(objectOTP.getUserId(), objectOTP.getOrderId(), objectOTP.getChannelName(),
+				objectOTP.getEmail());
+		objOtp.setOtp(otp);
 
-		SendEmail.sendEmail("aarushgandhi2007@gamil.com", otp, userId, orderId);
+		if (checkEmail(objectOTP.getEmail())) {
 
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				objOtp.setOtp(0);
-				otpDao.save(objOtp);
-			}
-		}, 60000);
+			send.sendEmail(objectOTP.getEmail(), otp, objectOTP.getUserId(), objectOTP.getOrderId());
 
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				objOtp.setAttempts(0);
-				otpDao.save(objOtp);
-			}
-		}, 300000);
+			Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					objOtp.setOtp(0);
+					otpDao.save(objOtp);
+				}
+			}, validTime);
 
-		otpDao.save(objOtp);
-		return otp;
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					objOtp.setAttempts(0);
+					otpDao.save(objOtp);
+				}
+			}, attemptsTimeout);
+
+			otpDao.save(objOtp);
+			return otp;
+		} else {
+			throw new InvalidEmailException();
+		}
 	}
 
 	@Override
 	public String validateOtp(int userId, int orderId, String channelName, int otp)
 			throws NegativeException, ExceededAttemptsException {
 
-		if (userId <= 0 || orderId <= 0 || otp <= 0) {
+		if (userId <= 0 || orderId <= 0 || otp < 0) {
 			throw new NegativeException();
 		}
 
@@ -77,16 +95,19 @@ public class OtpServicesImpl implements OtpServices {
 		else if (otp != objOtp.getOtp())
 			return "Invalid OTP";
 		else {
-			objOtp.setAttempts(objOtp.getAttempts()-1);
+			objOtp.setAttempts(objOtp.getAttempts() - 1);
 			otpDao.save(objOtp);
 			return "OTP Validated";
 		}
 
 	}
-	
-	boolean checkEmail(String email,String emailFormat) {
-		if(email.matches(emailFormat)) return true;
-		else return false;
+
+	public boolean checkEmail(String email) {
+		String re = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+		if (email.matches(re))
+			return true;
+		else
+			return false;
 	}
 
 }

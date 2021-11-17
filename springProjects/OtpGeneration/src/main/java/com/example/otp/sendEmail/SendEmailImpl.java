@@ -3,22 +3,20 @@ package com.example.otp.sendEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class SendEmailImpl implements SendEmail{
-	
+@Service
+public class SendEmailImpl implements SendEmail {
+
 	@Autowired
 	private JavaMailSender emailSender;
-	
+
+	@Override
 	public void sendEmail(String to, int otp, int userId, int orderId) {
-//		System.out.println(emailSender.toString());
-//		System.out.println("hi");
 		SimpleMailMessage msg = new SimpleMailMessage();
 		msg.setTo(to);
-		msg.setFrom("aarushgandhi2007@gmail.com");
-		msg.setSubject("Hey User your OTP is : ");
-		msg.setText(otp+" for userID : "+userId+" and orderId : "+orderId);
+		msg.setSubject(otp+"");
+		msg.setText("Your OTP for userId : "+userId+" and orderId : "+orderId+" is : "+otp+". This OTP will expire in 1 minute.");
 		emailSender.send(msg);
 	}
 }

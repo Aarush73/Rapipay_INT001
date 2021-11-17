@@ -10,56 +10,62 @@ import com.example.otp.services.OtpServicesImpl;
 
 class OTPServiceImplsTest {
 
-//	@Test
-//	@DisplayName("Validate Email 1")
-//	void testCheckEmail1() {
-//		// fail("Not yet implemented");
-//		OtpServicesImpl otpService = new OtpServicesImpl();
-//		boolean expected = true;
-//		boolean actual = otpService.checkEmail("abc@gmail.com");
-//		assertEquals(expected, actual);
-//	}
+	@Test
+	@DisplayName("Validate Email 1")
+	void testCheckEmail1() {
+		OtpServicesImpl otpService = new OtpServicesImpl();
+		boolean expected = true;
+		boolean actual = otpService.checkEmail("abc@gmail.com");
+		assertEquals(expected, actual);
+	}
 
-//	@Test
-//	@DisplayName("Validate Email 2")
-//	void testCheckEmail2() {
-//		// fail("Not yet implemented");
-//		OtpServicesImpl otpService = new OtpServicesImpl();
-//		boolean expected = false;
-//		boolean actual = otpService.checkEmail("abc@gmail.");
-//		assertEquals(expected, actual);
-//	}
-//
+	@Test
+	@DisplayName("Validate Email 2")
+	void testCheckEmail2() {
+		OtpServicesImpl otpService = new OtpServicesImpl();
+		boolean expected = true;
+		boolean actual = otpService.checkEmail("something@kiet.edu");
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	@DisplayName("Validate Email 3")
+	void testCheckEmail3() {
+		OtpServicesImpl otpService = new OtpServicesImpl();
+		boolean expected = false;
+		boolean actual = otpService.checkEmail("54@34");
+		assertEquals(expected, actual);
+	}
+
 	@Test
 	void testGetOTP() {
-		// fail("Not yet implemented");
 		OtpServicesImpl otpService = new OtpServicesImpl();
-//		OTP otp = new OTP(1, 1, "email", 1);
+		OTP otp = new OTP(1, 1, "email", "something@kiet.edu");
 		assertThrows(Exception.class, () -> {
-			otpService.getOtp(1, 1, "email");
+			otpService.getOtp(otp);
 		});
 	}
 
 	@Test
 	void testVerifyOTP() {
-		// fail("Not yet implemented");
 		OtpServicesImpl otpService = new OtpServicesImpl();
-//		OTP otp = new OTP(1, 1, "email", 1);
 
 		assertThrows(Exception.class, () -> {
 			otpService.validateOtp(1,1,"email", 1);
 		});
 	}
-
+	
 	@Test
-	void testSendOTPSMS() {
+	void testLengthOTP() {
 		OtpServicesImpl otpService = new OtpServicesImpl();
-//		OTP otp = new OTP(51, "sms", "9897630233");
-//		assertThrows(Exception.class, ()->{
-//			otpService.verifyOTP(otp);
-//	});
-//		String expected = otpService.sendOTPSMS(otp);
-		String actual = "successfully";
-//		assertEquals(expected, actual);
+		
+		OTP otp = new OTP(1, 1, "email", "something@kiet.edu");
+		
+		assertThrows(Exception.class, () -> {
+			int expected = 6;
+			int actual = (otpService.getOtp(otp) + "").length();
+			assertEquals(expected, actual);
+		});
+		
 	}
 }

@@ -12,20 +12,22 @@ public class OTP {
 	private String channelName;
 	private int otp;
 	private int attempts;
-	
+	private String email;
+
 	public OTP() {
 		this.userId = 0;
 		this.orderId = 0;
 		this.channelName = "";
 		this.otp = 0;
 		this.attempts = 0;
+		this.email = "";
 	}
 	
-	public OTP(int userId, int orderId, String channel, int otp) {
+	public OTP(int userId, int orderId, String channel, String email) {
 		this.userId = userId;
 		this.orderId = orderId;
 		this.channelName = channel;
-		this.otp = otp;
+		this.email = email;
 	}
 	
 	public int getUserId() {
@@ -62,9 +64,18 @@ public class OTP {
 	public void setAttempts(int attempts) {
 		this.attempts = attempts;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	@Override
 	public String toString() {
-		return "OTP [userId=" + userId + ", orderId=" + orderId + ", channelName=" + channelName + ", otp=" + otp + "]";
+		return "OTP [userId=" + userId + ", orderId=" + orderId + ", channelName=" + channelName + ", otp=" + otp
+				+ ", attempts=" + attempts + ", email=" + email + "]";
 	}
 }
