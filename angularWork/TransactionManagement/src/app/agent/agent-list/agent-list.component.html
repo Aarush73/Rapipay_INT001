@@ -1,0 +1,72 @@
+<div class="container">
+
+    <app-agent-head></app-agent-head>
+
+    <!-- <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+        Brand/logo 
+        <a class="navbar-brand" routerLink="../">Rapipay</a>
+
+        Links 
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="agent/agentlist">Agent</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="client/clientlist">Client</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="transaction/transactionlist">Transaction</a>
+                </li>
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" #agentId>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+                    (click)="showAgent(agentId.value)">Search</button>
+            </form>
+
+        </div>
+    </nav> -->
+
+    <h2 class="text-center">Agent Details</h2>
+    <h3><a routerLink="../">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">home </mat-icon>
+        </a></h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>AgentName</th>
+                <th scope="col">
+                    <mat-icon (click)="sortDescState()">keyboard_arrow_down</mat-icon>State<mat-icon
+                        (click)="sortAsceState()">keyboard_arrow_up</mat-icon>
+                </th>
+                <th>Bank</th>
+                <th>AccountNumber</th>
+                <th>PhoneNumber</th>
+                <th scope="col">
+                    <mat-icon (click)="sortDescWallet()">keyboard_arrow_down</mat-icon>Balance<mat-icon
+                        (click)="sortAsceWallet()">keyboard_arrow_up</mat-icon>
+                </th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr *ngFor="let agent of agents">
+                <td>{{agent.agentName}}</td>
+                <td>{{agent.agentState}}</td>
+                <td>{{agent.bankName}}</td>
+                <td>{{agent.accountNumber}}</td>
+                <td>{{agent.phoneNumber}}</td>
+                <td>{{agent.walletBalance}}</td>
+                <td><button (click)="updateAgent(agent.agentId)" class="btn btn-info">Edit</button></td>
+                <td><button (click)="deleteAgent(agent.agentId)" class="btn btn-danger">Delete</button></td>
+
+
+            </tr>
+        </tbody>
+
+    </table>
+</div>

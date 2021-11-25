@@ -1,0 +1,58 @@
+<div *ngIf="flag">
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+      <!-- Brand/logo -->
+      <a class="navbar-brand" routerLink="../">Rapipay</a>
+      
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="clientlist"  >Client List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="addClient">Add Client</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="doTransaction">Do Transaction</a>
+        </li>
+      </ul>
+    
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" #clientId>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="showClient(clientId.value)">Search</button>
+      </form>
+    
+      </div>
+    </nav>
+    <div *ngIf="isClientPresent">
+      <table class="table table-striped">
+        <thead>
+           
+            <tr>
+                <th>UserName</th>
+                <th>Password</th>
+                <th>Balance</th>
+               <th>State</th>
+                <th>phoneNumber</th>
+               
+            </tr>
+    
+        </thead>
+        <tbody>
+            <tr>
+               
+                <td>{{client.clientName}}</td>
+                <td>{{client.clientPassword}}</td>
+                <td>{{client.walletBalance}}</td>
+                <td>{{client.clientState}}</td>
+                <td>{{client.phoneNumber}}</td>
+            
+                
+    
+            </tr>
+        </tbody>
+    
+    </table>
+    </div>
+    
+  </div>

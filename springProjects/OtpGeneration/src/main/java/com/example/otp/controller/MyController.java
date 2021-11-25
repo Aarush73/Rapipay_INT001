@@ -22,7 +22,7 @@ public class MyController {
 	Logger logger = LoggerFactory.getLogger(MyController.class);
 	
 	@Autowired
-	OtpServices otps;
+	private OtpServices otps;
 	
 	@PostMapping("/getOtp")
 	public Object getOtp(@RequestBody OTP objectOTP) {
@@ -51,5 +51,10 @@ public class MyController {
 		} catch (Exception e2) {
 			return e2.toString();
 		}
+	}
+	
+	@GetMapping("/home")
+	public String home() {
+		return "home";
 	}
 }

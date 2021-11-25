@@ -24,7 +24,7 @@ public class OtpServicesImpl implements OtpServices {
 	public int attemptsTimeout;
 
 	@Autowired
-	OtpDao otpDao;
+	private OtpDao otpDao;
 
 	@Autowired
 	private SendEmail send;

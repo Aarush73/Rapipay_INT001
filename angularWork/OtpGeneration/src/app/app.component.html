@@ -1,0 +1,18 @@
+<div id="formdiv">
+  <form>
+
+    UserId : <input type="number" required><br><br>
+    OrderId : <input type="number" required><br><br>
+    Channel Name : <input type="text" required><br><br>
+  
+    <div *ngIf="toggleOn; else elseBlock">
+      Email-Id : <input type="email" required><br><br>
+      <button type="submit" (click)="toggleOn =!toggleOn">Generate OTP</button><br><br>
+    </div>
+    <ng-template #elseBlock>
+      OTP : <input type="number"><br><br>
+      <button type="submit" (click)="toggleOn =!toggleOn">Validate OTP</button><br><br>
+    </ng-template>
+  
+  </form>
+</div>

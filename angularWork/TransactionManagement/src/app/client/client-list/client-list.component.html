@@ -1,0 +1,37 @@
+<div class="container">
+    <h2 class="text-center">Client Details</h2>
+    <h3><a routerLink="../"><mat-icon aria-hidden="false" aria-label="Example home icon">home </mat-icon></a></h3>
+<table class="table table-striped">
+    <thead>
+       
+        <tr>
+            <th>UserName</th>
+            <th>Password</th>
+            <th scope="col"><mat-icon (click)="sortDescWallet()">keyboard_arrow_down</mat-icon>Balance<mat-icon (click)="sortAsceWallet()" >keyboard_arrow_up</mat-icon></th>
+            <th scope="col"><mat-icon (click)="sortDescState()">keyboard_arrow_down</mat-icon>State<mat-icon (click)="sortAsceState()" >keyboard_arrow_up</mat-icon></th>
+            <th>phoneNumber</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr *ngFor="let client of clients">
+           
+            <td>{{client.clientName}}</td>
+            <td>{{client.clientPassword}}</td>
+            <td>{{client.walletBalance}}</td>
+            <td>{{client.clientState}}</td>
+            <td>{{client.phoneNumber}}</td>
+            <td><button (click)="updateClient(client.clientId)" class="btn btn-info">Edit</button></td>
+            <td><button (click)="deleteClient(client.clientId)" class="btn btn-danger">Delete</button></td>
+    
+            
+
+        </tr>
+    </tbody>
+
+</table>
+</div>
+
+

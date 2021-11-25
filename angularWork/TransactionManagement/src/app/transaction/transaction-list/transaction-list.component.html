@@ -1,0 +1,37 @@
+<div class="container">
+    <h2 class="text-center">Transaction Details</h2>
+    <h3><a routerLink="../"><mat-icon aria-hidden="false" aria-label="Example home icon">home </mat-icon></a></h3>
+<table class="table table-striped">
+    <thead>
+
+        <tr>
+            <th>Date</th>
+            <th>AgentId</th>
+            <th>ClientId</th>
+            <th scope="col"><mat-icon >keyboard_arrow_down</mat-icon>amountOfTransaction<mat-icon  >keyboard_arrow_up</mat-icon></th>
+           
+           
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr *ngFor="let transaction of transactions">
+            <td>{{transaction.tDate}}</td>
+            <td>{{transaction.agentId}}</td>
+            <td>{{transaction.clientId}}</td>
+            <td>{{transaction.amount}}</td>
+            <td><button (click)="updateTransaction(transaction.tId)" class="btn btn-info">Edit</button></td>
+            <td><button (click)="deleteTransaction(transaction.tId)" class="btn btn-danger">Delete</button></td>
+            
+    
+            
+
+        </tr>
+    </tbody>
+
+</table>
+</div>
+
+

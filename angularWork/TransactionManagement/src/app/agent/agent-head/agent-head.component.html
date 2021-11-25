@@ -1,0 +1,59 @@
+
+<div *ngIf="flag">
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+      <!-- Brand/logo -->
+      <a class="navbar-brand" routerLink="../">Rapipay</a>
+      
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="agentlist"  >Agent List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="agent/addAgent">Add Agent</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="rapipay">Do Transaction</a>
+        </li>
+      </ul>
+    
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" #agentId>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"  (click)="showAgent(agentId.value)">Search</button>
+      </form>
+    
+      </div>
+    </nav>
+
+    <div *ngIf="isAgentPresent">
+      <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>AgentName</th>
+                <th>State</th>
+                <th>Bank</th>
+                <th>AccountNumber</th>
+                <th>PhoneNumber</th>
+                <th>Balance</th>
+            
+            </tr>
+    
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{agent.agentName}}</td>
+                <td>{{agent.agentState}}</td>
+                <td>{{agent.bankName}}</td>
+                <td>{{agent.accountNumber}}</td>
+                <td>{{agent.phoneNumber}}</td>
+                <td>{{agent.walletBalance}}</td>
+                
+                
+    
+            </tr>
+        </tbody>
+    
+       </table>
+      </div>
+  </div>
