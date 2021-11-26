@@ -21,14 +21,20 @@ public class AppUserServiceImpl implements UserDetailsService{
 	private AppUserRepository userRepo;
 
 	@Override  // from UserDetailsService
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		System.out.println("-------->> inside AppUserServiceImpl load users "+username);
-		//AppUsers user =  userRepo.getUsersByUsername(username);
+	public UserDetails loadUserByUsername(String username) throws 
+	      UsernameNotFoundException {
 		
-		User user1 = new User("raja","abc",Arrays.asList(new SimpleGrantedAuthority("admin")));
+		AppUsers user =  userRepo.getUsersByUsername(username);
+		System.out.println("--------Inside App User Service IMP ---------- ");
+		System.out.println(" Arg :- "+username);
+		System.out.println(" From Database "+user);
 		
-		//return new MyUserDeatils(user);
-		return user1;
+		return new MyUserDeatils(user);
+		
+		
+		
+		//User user1 = new User("raja","abc",Arrays.asList(new SimpleGrantedAuthority("admin")));
+		//return user1;
 	}
 }
 

@@ -9,11 +9,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class MyUserDeatils implements UserDetails {
 	private AppUsers user;
+	
 	public MyUserDeatils(AppUsers user) {
 		super();
 		this.user = user;
 	}
 	public MyUserDeatils() {	}
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		String authority = user.getRole();
