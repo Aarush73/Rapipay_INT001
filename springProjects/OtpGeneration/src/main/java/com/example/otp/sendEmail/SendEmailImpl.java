@@ -16,7 +16,7 @@ public class SendEmailImpl implements SendEmail {
 		SimpleMailMessage msg = new SimpleMailMessage();
 		msg.setTo(to);
 		msg.setSubject(otp+"");
-		msg.setText("Your OTP for userId : "+userId+" and orderId : "+orderId+" is : "+otp+". This OTP will expire in 1 minute.");
+		msg.setText("Your OTP for userId : "+userId+" and orderId : "+orderId+" is : "+otp+". This OTP will expire in 2 minutes.");
 		emailSender.send(msg);
 	}
 }

@@ -1,0 +1,27 @@
+_format_version: "2.1"
+_transform: true
+
+services: 
+  - name : generate_otp
+    url : https://otpservice:9090/api/v1/getOtp
+    routes :
+      - name : generate_otp_route
+        paths: 
+          - /generate-otp
+        strip_path: true
+        
+  - name : home
+    url : https://otpservice:9090/api/v1/home
+    routes :
+      - name : home
+        paths: 
+          - /home
+        strip_path: true
+        
+  - name : validate
+    url : https://otpservice:9090/api/v1/validateOtp
+    routes :
+      - name : validate-otp
+        paths: 
+          - /validateOtp
+        strip_path: true

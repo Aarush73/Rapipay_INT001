@@ -1,28 +1,145 @@
-version: '3.1'
-services:
-  API:
-    image: 'otp-api-docker.jar'
-    ports:
-      - "9090:9090"
-    depends_on:
-      PostgreSQL:
-        condition: service_healthy
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://PostgreSQL:5432/Emailotp
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=Aarush@8558
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+#version: '3.1'
+#services:
+#  kong:
+#    image: kong:2.5.0-alpine
+#    hostname: kong
+#    container_name: kong
+#    environment:
+#      KONG_DATABASE: 'off'
+#      KONG_PROXY_ACCESS_LOG: '/dev/stdout'
+#      KONG_ADMIN_ACCESS_LOG: '/dev/stdout'
+#      KONG_PROXY_ERROR_LOG: '/dev/stderr'
+#      KONG_ADMIN_ERROR_LOG: '/dev/stdout'
+#      KONG_ADMIN_LISTEN: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
+#      KONG_DECLARATIVE_CONFIG: "/opt/kong/kong.yaml"
+#    command: "kong start"
+#    ports:
+#      - "8000:8000"
+#      - "8443:8443"
+#      - "8001:8001"
+#      - "8444:8444"
+#    volumes:
+#      - ./config:/opt/kong
+    
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/Emailotp
+#      - SPRING_DATASOURCE_USERNAME=postgres
+#      - SPRING_DATASOURCE_PASSWORD=Aarush@8558
+#      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+##
+##  db:
+##    image: postgres
+##    container_name: db
+##    ports:
+##      - "5432:5432"
+##    environment:
+##      - POSTGRES_PASSWORD=Aarush@8558
+##      - POSTGRES_USER=postgres
+##      - POSTGRES_DB=Emailotp
+##    healthcheck:
+##      test: ["CMD-SHELL", "pg_isready -U postgres"]
+##      interval: 10s
+##      timeout: 5s
+##      retries: 5
+#
+#version: "3.1"
+#services:
+#  otpgeneration:
+##      image: 'otp-api-docker.jar'
+#      build: .
+#      container_name: otpgeneration
+#      environment:
+#        SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/Emailotp
+#      ports:
+#        - 9090:9090
+#      restart: always
+#      depends_on:
+#        - db
+#  db:
+#    image: postgres
+#    container_name: db
+#    environment:
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=Aarush@8558
+##      - POSTGRES_PASSWORD=postgres
+#      - POSTGRES_DB=Emailotp
+#      - PGDATA=/var/lib/postgresql/data/otpdata
+#    ports:
+#      - 5432:5432
+#    volumes:
+#      - pgdata:/var/lib/postgresql/data
+#    restart: always
+#volumes:
+#  pgdata: {}
+#version: ‘3.5’
+#networks:
+#  kong-net:
+#  driver: bridge
+#services:
+#  kong:
+#  image: kong.yml:latest
+#  container_name: kong
+#  networks:
+#  — kong-net
+#  environment:
+#  KONG_DATABASE: “off”
+#  KONG_DECLARATIVE_CONFIG: kong.yml
+#  healthcheck:
+#  test: [“CMD”, “curl”, “-f”, “http://kong:8000”]
+#  interval: 5s
+#  timeout: 2s
+#  retries: 15
+#  ports:
+#  — “8000:8000/tcp”
+#  — “8001:8001/tcp”
+#  — “8443:8443/tcp”
+#  — “8444:8444/tcp”
+# 
+#  web1:
+#  image: nginxdemos/hello:latest
+#  container_name: web1
+#  ports:
+#  — “9091:80”
+#networks:
+#  default:
+#    name: kong-net
 
-  PostgreSQL:
-    image: postgres
-    ports:
-      - "5432:5432"
+version: "3.9"
+networks:
+  default:
+    name: kong-net
+services:
+  kong:
+    image: kong:2.5.0-alpine
+    hostname: kong
+    container_name: kong
     environment:
-      - POSTGRES_PASSWORD=Aarush@8558
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=Emailotp
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      KONG_DATABASE: 'off'
+      KONG_PROXY_ACCESS_LOG: '/dev/stdout'
+      KONG_ADMIN_ACCESS_LOG: '/dev/stdout'
+      KONG_PROXY_ERROR_LOG: '/dev/stderr'
+      KONG_ADMIN_ERROR_LOG: '/dev/stdout'
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
+      KONG_DECLARATIVE_CONFIG: "/opt/kong/kong.yaml"
+    command: "kong start"
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+      - "8001:8001"
+      - "8444:8444"    
+    volumes:
+      - ./config:/opt/kong
+  mongo_db:
+    image: mongo:latest
+    restart: always
+    hostname: mongo_db
+    container_name: mongo_db
+    ports:
+      - "27017:27017"
+  otp_service:
+    image: otp-api-docker.jar:latest
+    hostname: otpservice
+    container_name: otpservice
+    links:
+      - mongo_db:mongo
+    ports:
+      - "8070:8070"

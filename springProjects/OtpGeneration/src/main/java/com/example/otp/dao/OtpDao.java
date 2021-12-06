@@ -1,9 +1,9 @@
 package com.example.otp.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.example.otp.bean.OTP;
 
-public interface OtpDao extends JpaRepository<OTP, Integer>{
+public interface OtpDao extends MongoRepository<OTP, Integer>{
 
 }

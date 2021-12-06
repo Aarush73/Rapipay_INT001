@@ -95,7 +95,7 @@ public class OtpServicesImpl implements OtpServices {
 		else if (otp != objOtp.getOtp())
 			return "Invalid OTP";
 		else {
-			objOtp.setAttempts(objOtp.getAttempts() - 1);
+			objOtp.setAttempts(0);
 			otpDao.save(objOtp);
 			return "OTP Validated";
 		}

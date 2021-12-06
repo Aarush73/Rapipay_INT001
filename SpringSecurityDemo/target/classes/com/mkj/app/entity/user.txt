@@ -1,7 +1,0 @@
-	{
-		"usernmame":"neha",
-		"password":"abc",
-		"role":"employee"
-		
-	}
-	
