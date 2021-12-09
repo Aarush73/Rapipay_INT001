@@ -42,9 +42,15 @@ public class TransactionServiceImpl implements TransactionService {
 			Client c = restTemplate.getForObject("http://localhost:7071/client/" + tx.getClientId(), Client.class);
 
 			if (tx.getTType().equals("AtoC")) {
+				if(tx.getAmount() > a.getWalletBalance()) {
+					return "Insufficient Balance in Agent's Account!";
+				}
 				a.setWalletBalance(a.getWalletBalance() - tx.getAmount());
 				c.setWalletBalance(c.getWalletBalance() + tx.getAmount());
 			} else {
+				if(tx.getAmount() > c.getWalletBalance()) {
+					return "Insufficient Balance in Client's Account!";
+				}
 				a.setWalletBalance(a.getWalletBalance() + tx.getAmount());
 				c.setWalletBalance(c.getWalletBalance() - tx.getAmount());
 			}
