@@ -17,14 +17,16 @@ public class Client {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int clientId;
 	private String clientName;
+	private String clientEmail;
 	private String clientPassword;
 	private String clientState;
 	private double walletBalance;
 	private long phoneNumber;
 	private int agentId;
 	
-	public Client(String clientName, String clientState, String clientPassword, double walletBalance, long phoneNumber, int agentId) {
+	public Client(String clientName, String clientEmail, String clientState, String clientPassword, double walletBalance, long phoneNumber, int agentId) {
 		this.clientName = clientName;
+		this.clientEmail = clientEmail;
 		this.clientState = clientState;
 		this.clientPassword = clientPassword;
 		this.walletBalance = walletBalance;

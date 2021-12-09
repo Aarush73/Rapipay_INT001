@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: AGENTSERVICE
+        uri: lb://AGENTSERVICE
+        predicates:
+          - Path=/agent/**
+      - id: CLIENTSERVICE
+        uri: lb://CLIENTSERVICE
+        predicates:
+          - Path=/client/**    
+      - id: TRANSACTIONSERVICE
+        uri: lb://TRANSACTIONSERVICE
+        predicates:
+          - Path=/transaction/** 

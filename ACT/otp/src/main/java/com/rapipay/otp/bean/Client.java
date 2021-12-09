@@ -1,6 +1,4 @@
-package com.rapipay.client.bean;
-
-import java.util.ArrayList;
+package com.rapipay.otp.bean;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,9 +23,8 @@ public class Client {
 	private double walletBalance;
 	private long phoneNumber;
 	private int agentId;
-	private ArrayList<Transaction> listTx;
 	
-	public Client(String clientName, String clientEmail, String clientState, String clientPassword, double walletBalance, long phoneNumber, int agentId, ArrayList<Transaction> listTx) {
+	public Client(String clientName, String clientEmail, String clientState, String clientPassword, double walletBalance, long phoneNumber, int agentId) {
 		this.clientName = clientName;
 		this.clientEmail = clientEmail;
 		this.clientState = clientState;
@@ -35,7 +32,6 @@ public class Client {
 		this.walletBalance = walletBalance;
 		this.phoneNumber = phoneNumber;
 		this.agentId = agentId;
-		this.listTx = listTx;
 	}
 }
 

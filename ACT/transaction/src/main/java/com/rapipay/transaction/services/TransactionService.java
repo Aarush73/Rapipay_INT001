@@ -9,9 +9,15 @@ public interface TransactionService {
 
 	public List<Transaction> getAllTransaction();
 
-	public Transaction insertTransaction(Transaction tx);
+	public String insertTransactionGeneration(Transaction tx);
+	
+	public String insertTransactionValiation(Transaction tx, int otp);
 
 	public Object updateTransaction(Transaction tx, int id);
 
 	public String deleteTransaction(int id);
+
+	public List<Transaction> getTxByAgentId(int id);
+
+	List<Transaction> getTxByClientId(int id);
 }

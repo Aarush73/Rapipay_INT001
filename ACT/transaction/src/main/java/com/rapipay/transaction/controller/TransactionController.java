@@ -31,9 +31,14 @@ public class TransactionController {
 		return service.getAllTransaction();
 	}
 	
-	@PostMapping("/transaction/insert")
-	public Transaction insertTransaction(@RequestBody Transaction transaction) {
-		return service.insertTransaction(transaction);
+	@PostMapping("/transaction/insert-p1")
+	public String insertTransactionGeneration(@RequestBody Transaction tx) {
+		return service.insertTransactionGeneration(tx);
+	}
+	
+	@PostMapping("/transaction/insert-p2/{otp}")
+	public String insertTransactionValidation(@RequestBody Transaction transaction, @PathVariable int otp) {
+		return service.insertTransactionValiation(transaction, otp);
 	}
 	
 	@PutMapping("/transaction/update/{id}")
@@ -44,5 +49,15 @@ public class TransactionController {
 	@DeleteMapping("/transaction/delete/{id}")
 	public String deleteTransaction(@PathVariable int id) {
 		return service.deleteTransaction(id);
+	}
+	
+	@GetMapping("/transaction/agent/{id}")
+	public List<Transaction> getTxByAgentId(@PathVariable int id) {
+		return service.getTxByAgentId(id);
+	}
+	
+	@GetMapping("/transaction/client/{id}")
+	public List<Transaction> getTxByClientId(@PathVariable int id) {
+		return service.getTxByClientId(id);
 	}
 }

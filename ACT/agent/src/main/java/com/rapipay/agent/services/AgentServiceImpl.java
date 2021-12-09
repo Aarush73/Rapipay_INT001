@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.rapipay.agent.bean.Agent;
 import com.rapipay.agent.bean.Client;
+import com.rapipay.agent.bean.Transaction;
 import com.rapipay.agent.dao.AgentDao;
 
 @Service
@@ -20,12 +21,18 @@ public class AgentServiceImpl implements AgentService {
 	@Autowired
 	private RestTemplate restTemplate;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Agent getAgent(int id) {
-		ArrayList<Client> clients = (ArrayList<Client>) restTemplate.getForObject("http://localhost:7071/client/agent/"+id, ArrayList.class);
 		Agent a = agentDao.findById(id).get();
+		
+		ArrayList<Client> clients = restTemplate.getForObject("http://localhost:7071/client/agent/"+id, ArrayList.class);
 		a.setListClients(clients);
-		return agentDao.saveAndFlush(a);
+		
+		ArrayList<Transaction> tx = restTemplate.getForObject("http://localhost:7072/transaction/agent/"+id, ArrayList.class);
+        a.setListTx(tx);
+        
+        return a;
 	}
 
 	@Override
@@ -55,10 +62,31 @@ public class AgentServiceImpl implements AgentService {
 		return "Agent Deleted";
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Agent> getAllAgent() {
-		return agentDao.findAll();
+		int id = 1;
+		List<Agent> allAgents = new ArrayList<Agent>();
+		
+		for (Agent a : agentDao.findAll()) {
+			ArrayList<Client> clients = restTemplate.getForObject("http://localhost:7071/client/agent/"+id, ArrayList.class);
+			a.setListClients(clients);
+			
+			ArrayList<Transaction> tx = restTemplate.getForObject("http://localhost:7072/transaction/agent/"+id, ArrayList.class);
+	        a.setListTx(tx);
+	        
+	        allAgents.add(a);
+	        id++;
+		}
+		return allAgents;
 	}
+
+//	@Override
+//	public Agent updateAmount(Transaction tx, int id) {
+//		Agent a = getAgent(id);
+//		a.setWalletBalance(a.getWalletBalance()-tx.getAmount());
+//		return agentDao.save(a);
+//	}
 
 }
 

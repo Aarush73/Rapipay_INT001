@@ -15,4 +15,6 @@ public interface AgentService {
 	public Object updateAgent(Agent agent, int id);
 
 	public String deleteAgent(int id);
+
+//	public Agent updateAmount(Transaction tx, int id);
 }

@@ -16,4 +16,6 @@ public interface ClientService {
 	public String deleteClient(int id);
 
 	public List<Client> getClientByAgentId(int id);
+
+//	public Client updateAmount(int amount, int id);
 }

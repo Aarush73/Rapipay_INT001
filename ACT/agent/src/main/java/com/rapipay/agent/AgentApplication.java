@@ -13,6 +13,7 @@ public class AgentApplication {
 	}
 
 	@Bean
+//	@LoadBalanced
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}

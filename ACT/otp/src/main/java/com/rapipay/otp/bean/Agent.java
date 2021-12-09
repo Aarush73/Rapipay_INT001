@@ -1,4 +1,4 @@
-package com.rapipay.agent.bean;
+package com.rapipay.otp.bean;
 
 import java.util.ArrayList;
 

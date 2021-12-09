@@ -40,6 +40,11 @@ public class ClientController {
 		return service.updateClient(client, id);
 	}
 	
+//	@PutMapping("/client/updateAmount/{id}")
+//	public Client updateAmount(@RequestBody int amount, @PathVariable int id) {
+//		return service.updateAmount(amount, id);
+//	}
+	
 	@GetMapping("/client/agent/{id}")
 	public List<Client> getClientsByAgentId(@PathVariable int id) {
 		return service.getClientByAgentId(id);
