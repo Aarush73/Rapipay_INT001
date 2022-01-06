@@ -12,9 +12,11 @@ import lombok.NoArgsConstructor;
 public class OTP1 {
 	
 	private int agentId;
-	@Id
+//	@Id
 	private int clientId;
 	private int otp;
+	@Id
+	private int s_no;
 	
 	public OTP1(int agentId, int clientId) {
 		this.agentId = agentId;
