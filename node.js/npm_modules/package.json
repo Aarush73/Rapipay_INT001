@@ -1,0 +1,22 @@
+{
+  "name": "npm_modules",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start" : "node index",
+    "dev": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aarush73/Rapipay_INT001/tree/master/node.js"
+  },
+  "author": "Aarush",
+  "license": "ISC",
+  "dependencies": {
+    "date-fns": "^2.28.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
