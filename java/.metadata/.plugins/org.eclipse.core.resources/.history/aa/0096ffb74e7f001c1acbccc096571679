@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: deployment
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          time-zone: Asia/Kathmandu

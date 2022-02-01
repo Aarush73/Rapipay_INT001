@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;RAPI_CRIF_INTEGRATION&apos;" deleteContents="false" description="Delete resource &apos;RAPI_CRIF_INTEGRATION&apos;" element1="/RAPI_CRIF_INTEGRATION" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1643273597337"/>
+</session>
